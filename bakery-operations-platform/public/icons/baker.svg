@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Bakery floor">
+  <rect width="512" height="512" rx="104" fill="#7c2d12"/>
+  <path d="M164 214a52 52 0 1 1 30 47v18h124v-18a52 52 0 1 1 30-47 52 52 0 0 1-30 47" fill="#fde68a"/>
+  <rect x="186" y="268" width="140" height="26" rx="13" fill="#fbbf24"/>
+  <rect x="176" y="306" width="160" height="96" rx="20" fill="#fde68a"/>
+  <path d="M206 344h100M206 372h68" stroke="#7c2d12" stroke-width="14" stroke-linecap="round"/>
+</svg>

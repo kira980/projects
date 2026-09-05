@@ -1,0 +1,33 @@
+{
+  "id": "/dashboard",
+  "name": "מאפיית אורן — ניהול",
+  "short_name": "ניהול",
+  "description": "מערכת ניהול תפעולית למאפייה",
+  "start_url": "/dashboard",
+  "scope": "/dashboard",
+  "display": "standalone",
+  "dir": "rtl",
+  "lang": "he",
+  "background_color": "#141210",
+  "theme_color": "#141210",
+  "icons": [
+    {
+      "src": "/icons/logo-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/logo-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/logo-maskable.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}

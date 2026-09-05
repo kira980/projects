@@ -1,0 +1,33 @@
+{
+  "id": "/production/orders",
+  "name": "הכנות משלוחים",
+  "short_name": "משלוחים",
+  "description": "מסך הכנות משלוחים לאופים",
+  "start_url": "/production/orders",
+  "scope": "/production",
+  "display": "standalone",
+  "dir": "rtl",
+  "lang": "he",
+  "background_color": "#141210",
+  "theme_color": "#141210",
+  "icons": [
+    {
+      "src": "/icons/baker-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/baker-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/baker-maskable.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}
