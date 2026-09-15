@@ -1,0 +1,668 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Outfit:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── PWA safe area utilities ──────────────────────────────────────────────── */
+/* viewport-fit=cover must be set on <meta name="viewport"> for these to work */
+@layer utilities {
+  .safe-area-pt  { padding-top:    env(safe-area-inset-top);    }
+  .safe-area-pb  { padding-bottom: env(safe-area-inset-bottom); }
+  .safe-area-pl  { padding-left:   env(safe-area-inset-left);   }
+  .safe-area-pr  { padding-right:  env(safe-area-inset-right);  }
+  .safe-area-mt  { margin-top:     env(safe-area-inset-top);    }
+  .safe-area-mb  { margin-bottom:  env(safe-area-inset-bottom); }
+}
+
+@layer base {
+  :root {
+    --font-display: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+    --font-body: 'Outfit', system-ui, sans-serif;
+    --background: 0 0% 100%;
+    --foreground: 240 10% 3.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 240 10% 3.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 240 10% 3.9%;
+    --primary: 256 83% 58%;
+    --primary-foreground: 0 0% 98%;
+    --secondary: 240 5% 96%;
+    --secondary-foreground: 240 6% 10%;
+    --muted: 240 5% 96%;
+    --muted-foreground: 240 4% 46%;
+    --accent: 256 83% 96%;
+    --accent-foreground: 256 83% 40%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 240 6% 91%;
+    --input: 240 6% 91%;
+    --ring: 256 83% 58%;
+    --radius: 0.625rem;
+    --sidebar-bg: 0 0% 99.5%;
+    --sidebar-border: 240 6% 93%;
+  }
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: var(--font-body);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-feature-settings: "rlig" 1, "calt" 1, "ss01" 1;
+  }
+
+  ::selection {
+    background: hsl(256 83% 58% / 0.1);
+    color: hsl(256 83% 38%);
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-semibold tracking-tight;
+  }
+}
+
+@layer utilities {
+  /* Dot grid texture — dark backgrounds */
+  .dot-grid {
+    background-image: radial-gradient(circle, rgba(255,255,255,0.07) 1px, transparent 1px);
+    background-size: 28px 28px;
+  }
+
+  /* Dot grid texture — light backgrounds */
+  .dot-grid-light {
+    background-image: radial-gradient(circle, rgba(0,0,0,0.05) 1px, transparent 1px);
+    background-size: 32px 32px;
+  }
+
+  /* Primary gradient — used on brand icon only */
+  .gradient-primary {
+    background: linear-gradient(135deg, #5b21b6 0%, #7c3aed 50%, #8b5cf6 100%);
+  }
+
+  .gradient-text {
+    background: linear-gradient(135deg, #6d28d9, #8b5cf6);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .glass {
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+  }
+
+  .card-hover {
+    @apply transition-all duration-200 hover:shadow-[0_4px_24px_rgba(0,0,0,0.06)];
+  }
+
+  /* Sidebar */
+  .sidebar-item {
+    @apply flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-all duration-150 relative;
+  }
+
+  .sidebar-item-active {
+    @apply bg-zinc-100 text-zinc-900;
+  }
+
+  .sidebar-item-inactive {
+    @apply text-zinc-500 hover:bg-zinc-50 hover:text-zinc-700;
+  }
+}
+
+/* Display serif — Cormorant Garamond */
+.font-display {
+  font-family: var(--font-display);
+}
+
+/* Solid gold text — Apple uses solid accents, never cheap gradients */
+.text-gold {
+  color: #c9a227;
+}
+
+/* Hero gradient: Apple warm off-white → gold (subtle, used sparingly) */
+.hero-gradient-warm {
+  background: linear-gradient(125deg, #f5f5f7 0%, #c9a227 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ─── Grain texture overlay — adds tactile depth like Stripe/Linear ───── */
+.noise-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9998;
+  pointer-events: none;
+  opacity: 0.038;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 220px 220px;
+}
+
+/* ─── Phone mockup frame ──────────────────────────────────────────────── */
+.phone-mockup {
+  width: 268px;
+  height: 548px;
+  border-radius: 44px;
+  background: #070710;
+  border: 1.5px solid rgba(255,255,255,0.11);
+  position: relative;
+  overflow: visible;
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,0.03),
+    0 60px 120px rgba(0,0,0,0.75),
+    0 20px 60px rgba(0,0,0,0.4),
+    inset 0 1px 0 rgba(255,255,255,0.07);
+}
+.phone-screen-inner {
+  position: absolute;
+  inset: 0;
+  overflow-y: auto;
+  scrollbar-width: none;
+  border-radius: 42px;
+  background: #07070f;
+}
+.phone-screen-inner::-webkit-scrollbar { display: none; }
+.phone-pill-notch {
+  position: absolute;
+  top: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 74px;
+  height: 22px;
+  background: #000;
+  border-radius: 11px;
+  z-index: 20;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.05);
+}
+.phone-btn-r  { position:absolute; right:-2px; top:152px; width:3px; height:66px; background:rgba(255,255,255,0.09); border-radius:0 2px 2px 0; }
+.phone-btn-l1 { position:absolute; left:-2px;  top:108px; width:3px; height:32px; background:rgba(255,255,255,0.07); border-radius:2px 0 0 2px; }
+.phone-btn-l2 { position:absolute; left:-2px;  top:152px; width:3px; height:60px; background:rgba(255,255,255,0.07); border-radius:2px 0 0 2px; }
+.phone-btn-l3 { position:absolute; left:-2px;  top:224px; width:3px; height:60px; background:rgba(255,255,255,0.07); border-radius:2px 0 0 2px; }
+.phone-glow-base {
+  position: absolute;
+  bottom: -48px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 200px;
+  height: 60px;
+  background: radial-gradient(ellipse, rgba(124,58,237,0.45) 0%, rgba(212,168,85,0.18) 45%, transparent 70%);
+  filter: blur(22px);
+  pointer-events: none;
+}
+
+/* Gold CTA button */
+.btn-gold {
+  background: linear-gradient(135deg, #d4a855 0%, #b8892e 100%);
+  color: #06060e;
+  border-radius: 100px;
+  font-weight: 700;
+  box-shadow: 0 4px 20px rgba(212,168,85,0.35), 0 1px 4px rgba(0,0,0,0.2);
+  transition: background 0.2s ease, box-shadow 0.2s ease, transform 0.15s ease;
+}
+.btn-gold:hover {
+  background: linear-gradient(135deg, #e0b660 0%, #c99a38 100%);
+  box-shadow: 0 8px 30px rgba(212,168,85,0.48);
+  transform: translateY(-1px);
+}
+.btn-gold:active { transform: scale(0.98); }
+
+/* ─── Wix-style light section components ──────────────────────────────── */
+
+/* Headline gradient for LIGHT backgrounds — deeper, more saturated */
+.hero-gradient-text-dark {
+  background: linear-gradient(125deg, #4c1d95 0%, #6d28d9 45%, #92400e 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Pill primary button — Wix signature shape */
+.btn-bold-violet {
+  background: #5b21b6;
+  box-shadow: 0 4px 20px rgba(91, 33, 182, 0.28), 0 1px 4px rgba(0, 0, 0, 0.08);
+  transition: background 0.2s ease, box-shadow 0.2s ease, transform 0.15s ease;
+}
+.btn-bold-violet:hover {
+  background: #4c1d95;
+  box-shadow: 0 8px 30px rgba(91, 33, 182, 0.4);
+  transform: translateY(-1px);
+}
+.btn-bold-violet:active {
+  transform: translateY(0) scale(0.98);
+}
+
+/* Ghost pill button for light backgrounds */
+.btn-ghost-dark {
+  background: transparent;
+  color: #374151;
+  border: 1.5px solid rgba(0, 0, 0, 0.12);
+  transition: all 0.2s ease;
+}
+.btn-ghost-dark:hover {
+  border-color: rgba(91, 33, 182, 0.35);
+  color: #5b21b6;
+  background: rgba(91, 33, 182, 0.04);
+}
+
+/* White elevated card for light sections */
+.card-elevated {
+  background: #ffffff;
+  border-radius: 20px;
+  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.055), 0 1px 4px rgba(0, 0, 0, 0.03);
+  transition: box-shadow 0.25s ease, transform 0.25s ease;
+}
+.card-elevated:hover {
+  box-shadow: 0 10px 48px rgba(91, 33, 182, 0.1), 0 2px 8px rgba(0, 0, 0, 0.05);
+  transform: translateY(-4px);
+}
+
+/* Featured wide card — violet-tinted */
+.card-elevated-featured {
+  background: linear-gradient(150deg, #f5f0ff 0%, #ffffff 60%);
+  border-radius: 20px;
+  border: 1px solid rgba(124, 58, 237, 0.1);
+  box-shadow: 0 4px 32px rgba(91, 33, 182, 0.08);
+  transition: box-shadow 0.25s ease, transform 0.25s ease;
+}
+.card-elevated-featured:hover {
+  box-shadow: 0 14px 56px rgba(91, 33, 182, 0.14);
+  transform: translateY(-4px);
+}
+
+/* Booking card wrapper for light hero context */
+.booking-card-wrapper-light {
+  position: relative;
+  filter: drop-shadow(0 32px 72px rgba(0, 0, 0, 0.28)) drop-shadow(0 8px 24px rgba(91, 33, 182, 0.18));
+}
+.booking-card-wrapper-light::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: 25px;
+  background: linear-gradient(135deg, rgba(124, 58, 237, 0.5) 0%, rgba(245, 158, 11, 0.12) 60%, transparent 100%);
+  z-index: -1;
+}
+
+/* Numbered circle for "How it works" steps */
+.step-circle {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #7c3aed, #5b21b6);
+  color: white;
+  font-size: 13px;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 4px 16px rgba(91, 33, 182, 0.3);
+}
+
+/* Connector line between steps */
+.step-connector {
+  width: 2px;
+  flex: 1;
+  background: linear-gradient(to bottom, rgba(124, 58, 237, 0.2), transparent);
+  margin: 4px auto;
+}
+
+/* ─── Premium dark landing-page styles ────────────────────────────────── */
+
+/* Aurora animated blobs */
+.aurora-container {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.aurora-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(100px);
+  pointer-events: none;
+}
+
+.aurora-orb-1 {
+  width: 70vw;
+  height: 70vw;
+  background: radial-gradient(circle, rgba(124, 58, 237, 0.13) 0%, transparent 65%);
+  top: -30%;
+  left: -20%;
+  animation: aurora-drift 14s ease-in-out infinite;
+}
+
+.aurora-orb-2 {
+  width: 50vw;
+  height: 50vw;
+  background: radial-gradient(circle, rgba(245, 158, 11, 0.045) 0%, transparent 65%);
+  bottom: -15%;
+  right: -10%;
+  animation: aurora-drift 10s ease-in-out infinite;
+  animation-delay: -4s;
+}
+
+.aurora-orb-3 {
+  width: 35vw;
+  height: 35vw;
+  background: radial-gradient(circle, rgba(99, 102, 241, 0.09) 0%, transparent 65%);
+  top: 25%;
+  right: 25%;
+  animation: aurora-drift 16s ease-in-out infinite;
+  animation-delay: -8s;
+}
+
+@keyframes aurora-drift {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  25%       { transform: translate(2%, -3%) scale(1.04); }
+  50%       { transform: translate(-2%, 2%) scale(0.96); }
+  75%       { transform: translate(3%, 1%) scale(1.02); }
+}
+
+/* Fine grid overlay for hero */
+.hero-grid {
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+  background-size: 64px 64px;
+}
+
+/* Gradient headline — warm violet → indigo → gold */
+.hero-gradient-text {
+  background: linear-gradient(125deg, #c4b5fd 0%, #818cf8 40%, #f0c674 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Violet glow CTA */
+.btn-glow-violet {
+  background: linear-gradient(135deg, #7c3aed, #6d28d9);
+  box-shadow: 0 0 0 1px rgba(109, 40, 217, 0.45), 0 4px 20px rgba(109, 40, 217, 0.3);
+  transition: background 0.2s ease, box-shadow 0.2s ease, transform 0.15s ease;
+}
+.btn-glow-violet:hover {
+  background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+  box-shadow: 0 0 0 1px rgba(139, 92, 246, 0.55), 0 6px 28px rgba(109, 40, 217, 0.45);
+  transform: translateY(-1px);
+}
+.btn-glow-violet:active {
+  transform: translateY(0) scale(0.98);
+}
+
+/* White CTA on dark */
+.btn-cta-white {
+  background: #ffffff;
+  box-shadow: 0 4px 24px rgba(255, 255, 255, 0.1), 0 1px 4px rgba(0, 0, 0, 0.2);
+  transition: background 0.2s ease, box-shadow 0.2s ease, transform 0.15s ease;
+}
+.btn-cta-white:hover {
+  background: #efefef;
+  box-shadow: 0 6px 32px rgba(255, 255, 255, 0.16), 0 2px 8px rgba(0, 0, 0, 0.2);
+  transform: translateY(-1px);
+}
+.btn-cta-white:active {
+  transform: translateY(0) scale(0.98);
+}
+
+/* Frosted glass card */
+.glass-card {
+  background: rgba(255, 255, 255, 0.025);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  transition: background 0.25s ease, border-color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
+}
+.glass-card:hover {
+  background: rgba(255, 255, 255, 0.04);
+  border-color: rgba(124, 58, 237, 0.22);
+}
+
+/* Lift on hover */
+.hover-lift:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.35);
+}
+
+/* Hero booking card */
+.booking-card-wrapper {
+  position: relative;
+  filter: drop-shadow(0 32px 80px rgba(0, 0, 0, 0.55));
+}
+.booking-card-wrapper::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: 25px;
+  background: linear-gradient(135deg, rgba(124, 58, 237, 0.45) 0%, rgba(6, 182, 212, 0.12) 60%, transparent 100%);
+  z-index: -1;
+}
+.booking-card {
+  background: rgba(10, 10, 20, 0.92);
+  backdrop-filter: blur(24px) saturate(120%);
+  -webkit-backdrop-filter: blur(24px) saturate(120%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 24px;
+  padding: 28px;
+  width: 360px;
+}
+.booking-service-card {
+  position: relative;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 12px;
+  padding: 10px 12px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.booking-service-active {
+  background: rgba(124, 58, 237, 0.12);
+  border-color: rgba(124, 58, 237, 0.4);
+}
+.booking-time-slot {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 8px;
+  padding: 6px 4px;
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.45);
+  cursor: pointer;
+  transition: all 0.15s ease;
+  text-align: center;
+}
+.booking-time-active {
+  background: rgba(124, 58, 237, 0.15);
+  border-color: rgba(124, 58, 237, 0.45);
+  color: rgba(167, 139, 250, 1);
+}
+
+/* Infinite marquee */
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+.marquee-track {
+  animation: marquee 35s linear infinite;
+}
+.marquee-track:hover {
+  animation-play-state: paused;
+}
+
+/* Features section tinted background */
+.features-section-bg {
+  background: linear-gradient(180deg, #07070f 0%, #09091a 50%, #07070f 100%);
+}
+.aurora-orb-features {
+  inset: 0;
+  background: radial-gradient(ellipse 60% 70% at 50% 50%, rgba(124, 58, 237, 0.05) 0%, transparent 70%);
+  filter: blur(60px);
+}
+
+/* CTA panel */
+.cta-section {
+  background: #09091a;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+.cta-aurora {
+  background:
+    radial-gradient(ellipse 70% 55% at 50% -5%, rgba(124, 58, 237, 0.22) 0%, transparent 70%),
+    radial-gradient(ellipse 40% 40% at 85% 95%, rgba(6, 182, 212, 0.06) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+/* Pricing plan cards */
+.plan-card {
+  background: rgba(255,255,255,0.015);
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 20px;
+  transition: border-color 0.25s ease, background 0.25s ease;
+}
+.plan-card:hover {
+  background: rgba(255,255,255,0.03);
+  border-color: rgba(255,255,255,0.11);
+}
+
+/* Animated gradient border — Pro plan */
+.plan-pro-outer {
+  border-radius: 21px;
+  padding: 1px;
+  background: linear-gradient(135deg, rgba(124,58,237,0.9), rgba(192,38,211,0.6), rgba(245,158,11,0.5), rgba(124,58,237,0.9));
+  background-size: 300% 300%;
+  animation: border-rotate 5s linear infinite;
+  box-shadow: 0 0 64px rgba(124,58,237,0.14);
+}
+.plan-pro-inner {
+  background: #0a0918;
+  border-radius: 20px;
+  height: 100%;
+}
+@keyframes border-rotate {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Gold "Most popular" badge */
+.gold-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: linear-gradient(135deg, #d4a855, #b8892e);
+  color: #06060e;
+  font-size: 10px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding: 4px 10px;
+  border-radius: 99px;
+  box-shadow: 0 2px 16px rgba(212,168,85,0.35);
+}
+
+/* ─────────────────────────────────────────────────────────────────────── */
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 4px; height: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: hsl(var(--border)); border-radius: 99px; }
+::-webkit-scrollbar-thumb:hover { background: hsl(var(--muted-foreground) / 0.3); }
+
+/* React Day Picker */
+.rdp {
+  --rdp-accent-color: hsl(256 83% 58%);
+  --rdp-background-color: hsl(256 83% 96%);
+  margin: 0;
+}
+.rdp-day_selected:not(.rdp-day_disabled) {
+  background-color: hsl(256 83% 58%) !important;
+  color: white !important;
+}
+.rdp-day_today {
+  font-weight: 700;
+  color: hsl(256 83% 58%);
+}
+
+/* Shared public business website chrome. Colours stay within each tenant theme. */
+.tenant-root { --tenant-border: color-mix(in srgb, var(--tenant-text) 16%, transparent); }
+.tenant-root section[id], .tenant-root div[id] { scroll-margin-top: 100px; }
+.tenant-root :is(a, button, input, summary):focus-visible { outline: 2px solid var(--tenant-primary); outline-offset: 4px; }
+.tenant-site-header { position: sticky; top: 0; z-index: 40; background: var(--tenant-background); border-bottom: 1px solid var(--tenant-border); }
+.tenant-site-nav { max-width: 1200px; margin: auto; padding: 18px 24px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+.tenant-site-name { display: flex; align-items: center; gap: 12px; font-size: 16px; font-weight: 600; min-width: 0; }
+.tenant-site-name > span:last-child { overflow-wrap: anywhere; }
+.tenant-monogram { display: grid; place-items: center; width: 38px; height: 38px; flex-shrink: 0; background: var(--tenant-accent); color: var(--tenant-primary); font-family: Georgia, serif; font-size: 23px; border-radius: var(--tenant-radius); }
+.tenant-site-links { display: flex; gap: 28px; font-size: 13px; color: var(--tenant-muted); }
+.tenant-site-nav > a:last-child { flex-shrink: 0; }
+.tenant-site-footer { display: flex; align-items: center; justify-content: space-between; gap: 20px; max-width: 1200px; margin: auto; padding: 30px 24px; border-top: 1px solid var(--tenant-border); font-size: 12px; }
+.tenant-site-footer a { display: flex; align-items: center; gap: 6px; color: var(--tenant-muted); }
+.tenant-section-heading { display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; margin-bottom: 32px; }
+.tenant-eyebrow { color: var(--tenant-muted); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; margin-bottom: 14px; }
+.tenant-text-link { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; border-bottom: 1px solid var(--tenant-border); padding: 10px 0; }
+.tenant-service-row { display: flex; gap: 18px; align-items: flex-start; padding: 28px 0; border-top: 1px solid var(--tenant-border); }
+.tenant-service-number { color: var(--tenant-muted); font-size: 12px; padding-top: 3px; }
+.tenant-contact-link { display: flex; align-items: flex-start; gap: 16px; font-size: 14px; }
+.tenant-contact-link strong { font-weight: 500; display: block; }
+.tenant-contact-link small { display: flex; align-items: center; gap: 4px; color: var(--tenant-muted); font-size: 12px; margin-top: 5px; }
+/* Opening hours: a quiet list with an open/closed status dot, not a table. */
+.tenant-hours { align-self: start; }
+.tenant-hours h3 { font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: var(--tenant-muted); font-weight: 500; margin-bottom: 18px; }
+.tenant-hours-list { display: flex; flex-direction: column; gap: 2px; }
+.tenant-hours-row { display: grid; grid-template-columns: 8px 1fr auto; align-items: center; gap: 12px; padding: 9px 10px; border-radius: calc(var(--tenant-radius) / 1.6); font-size: 14px; }
+.tenant-hours-dot { width: 7px; height: 7px; border-radius: 50%; background: #16a34a; }
+.tenant-hours-row[data-open='false'] .tenant-hours-dot { background: #dc2626; }
+.tenant-hours-row[data-open='false'] :is(.tenant-hours-day, .tenant-hours-time) { color: var(--tenant-muted); }
+.tenant-hours-time { font-variant-numeric: tabular-nums; text-align: end; font-size: 13px; color: var(--tenant-muted); }
+.tenant-hours-row[data-today='true'] { background: color-mix(in srgb, var(--tenant-text) 6%, transparent); }
+.tenant-hours-row[data-today='true'] .tenant-hours-day { font-weight: 600; }
+.tenant-hours-row[data-today='true'] .tenant-hours-time { color: var(--tenant-text); }
+.tenant-hours-row[data-today='true'][data-open='true'] .tenant-hours-dot { box-shadow: 0 0 0 4px color-mix(in srgb, #16a34a 22%, transparent); }
+.tenant-hours-row[data-today='true'][data-open='false'] .tenant-hours-dot { box-shadow: 0 0 0 4px color-mix(in srgb, #dc2626 22%, transparent); }
+@media (max-width: 640px) {
+  .tenant-site-nav { padding: 14px 20px; gap: 12px; }
+  .tenant-site-name { font-size: 13px; gap: 8px; }
+  .tenant-site-links { display: none; }
+  .tenant-site-nav > a:last-child { font-size: 12px; padding: 10px 12px; }
+  .tenant-site-nav > a:last-child svg { display: none; }
+  .tenant-section-heading { align-items: flex-start; flex-direction: column; gap: 12px; }
+  .tenant-service-row { gap: 12px; }
+  .tenant-hours-row { font-size: 13.5px; padding: 8px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .tenant-root *, .tenant-root *::before, .tenant-root *::after { animation: none !important; transition: none !important; }
+}
+.tenant-service-elevated { background: var(--tenant-surface); padding: 24px; border: 1px solid var(--tenant-border); border-radius: var(--tenant-card-radius); box-shadow: 0 3px 14px #00000005; }
+.tenant-service-bordered { padding: 24px; border: 1px solid var(--tenant-border); border-radius: var(--tenant-card-radius); }
+.tenant-service-ghost { border-color: transparent; }
+
+/* ── Booking flow ─────────────────────────────────────────────────────────── */
+/* The flow is rendered inside a tenant website, inside the customer app and on
+   its own. These tokens resolve to the surrounding tenant brand when there is
+   one and fall back to the neutral app palette when there isn't, so the booking
+   steps always look like the page they were opened from. */
+.booking-flow-root {
+  --bf-text:         var(--tenant-text, #18181b);
+  --bf-muted:        var(--tenant-muted, #71717a);
+  --bf-card:         var(--tenant-background, #ffffff);
+  --bf-subtle:       color-mix(in srgb, var(--tenant-text, #18181b) 5%, transparent);
+  --bf-border:       color-mix(in srgb, var(--tenant-text, #18181b) 14%, transparent);
+  --bf-primary:      var(--tenant-primary, #7c3aed);
+  --bf-on-primary:   var(--tenant-on-primary, #ffffff);
+  --bf-primary-soft: color-mix(in srgb, var(--tenant-primary, #7c3aed) 12%, transparent);
+  color: var(--bf-text);
+}
+/* Headings and controls pick up the tenant's typeface and corner radius. */
+.booking-flow-root :is(h2, h3) { font-family: var(--tenant-heading-font, inherit); }
+.booking-flow-root :is(input, textarea, select) { color: var(--bf-text); background: var(--bf-card); }
+.booking-flow-root :is(input, textarea, select)::placeholder { color: var(--bf-muted); }

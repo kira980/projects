@@ -1,0 +1,1 @@
+ALTER TABLE businesses ADD COLUMN IF NOT EXISTS booking_days_ahead INTEGER DEFAULT NULL;

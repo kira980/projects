@@ -1,0 +1,319 @@
+/* Structure shared by the live website and the isolated builder viewport. */
+.tenant-website { --tenant-border: color-mix(in srgb, var(--tenant-text) 15%, transparent); --site-space: 88px; --site-width: 1160px; overflow-wrap: break-word; }
+.tenant-website[data-spacing='compact'] { --site-space: 56px; }
+.tenant-website[data-spacing='spacious'] { --site-space: 112px; }
+.tenant-website h1, .tenant-website h2 { text-wrap: balance; }
+.tenant-website .tenant-site-header { background: var(--tenant-background); }
+.tenant-website .tenant-site-nav { max-width: 1280px; padding-block: 24px; }
+.tenant-website .tenant-site-name { font-size: 18px; letter-spacing: -.5px; }
+.tenant-website .tenant-monogram { background: transparent; border: 1px solid var(--tenant-border); border-radius: 0; }
+.tenant-website .tenant-site-links { color: var(--tenant-text); gap: 30px; }
+.tenant-website .tenant-site-footer { max-width: var(--site-width); margin-inline: auto; padding-block: 35px; }
+.site-section-inner { width: min(var(--site-width, 1160px), calc(100% - 64px)); margin: auto; }
+.site-kicker { font-size: 10px; line-height: 1.6; letter-spacing: .2em; text-transform: uppercase; font-weight: 500; color: var(--tenant-muted); }
+.site-hero { position: relative; background: var(--tenant-background); }
+.site-hero-inner { width: min(var(--site-width, 1160px), calc(100% - 64px)); margin: auto; padding-block: 72px; display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
+.site-hero-copy { position: relative; min-width: 0; }
+.site-hero h1 { font-family: var(--site-heading-font); font-size: clamp(40px, 5.5vw, 78px); font-weight: 400; letter-spacing: -.045em; line-height: 1.03; white-space: pre-line; margin: 26px 0; overflow-wrap: anywhere; }
+.site-hero-description { font-size: 15px; line-height: 1.9; color: var(--tenant-muted); max-width: 420px; margin-block: 0 30px; }
+.site-hero-actions { display: flex; flex-wrap: wrap; gap: 16px; }
+.site-hero-actions a { font-size: 13px; padding: 16px 24px; min-height: 48px; }
+.site-hero-address { display: flex; align-items: center; gap: 8px; color: var(--tenant-muted); font-size: 12px; margin-top: 26px; }
+.site-hero-media { position: relative; margin: 0; min-width: 0; }
+.site-cover { position: relative; overflow: hidden; aspect-ratio: 4 / 5; background: var(--tenant-surface); }
+.site-cover img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.site-hero-media figcaption { display: flex; align-items: center; gap: 6px; font-size: 10px; color: var(--tenant-muted); padding-top: 14px; }
+.site-hero-overview { background: var(--tenant-surface); border: 1px solid var(--tenant-border); padding: 38px; border-radius: var(--tenant-radius); }
+.site-hero-overview h2 { font-family: var(--site-heading-font); font-size: 28px; font-weight: 400; line-height: 1.2; margin: 18px 0 30px; }
+.site-overview-service { display: flex; gap: 15px; justify-content: space-between; align-items: center; padding-block: 18px; border-top: 1px solid var(--tenant-border); font-size: 13px; }
+.site-overview-service small { display: flex; align-items: center; gap: 4px; font-size: 11px; color: var(--tenant-muted); white-space: nowrap; }
+.site-overview-note { font-size: 14px; color: var(--tenant-muted); }
+.site-hero-overview .tenant-text-link { margin-top: 22px; }
+/* Editorial: an asymmetric cover with a framed portrait and a restrained menu. */
+.tenant-website[data-style='editorial'] .tenant-site-name { font-family: Georgia, serif; font-size: 25px; font-weight: 400; }
+.tenant-website[data-style='editorial'] .tenant-site-nav { border-bottom: 1px solid var(--tenant-border); }
+.site-hero[data-layout='editorial'] .site-hero-inner { grid-template-columns: 1.08fr .92fr; gap: 80px; padding-block: 80px; }
+.site-hero[data-layout='editorial'] .site-hero-media { padding: 14px; border: 1px solid var(--tenant-border); }
+.site-hero[data-layout='editorial'] h1 { font-size: clamp(45px, 6.5vw, 88px); }
+/* Atelier: a centred masthead and headline followed by a panoramic image. */
+.tenant-website[data-style='atelier'] .tenant-site-nav { display: grid; grid-template-columns: 1fr auto 1fr; }
+.tenant-website[data-style='atelier'] .tenant-site-name { grid-column: 2; grid-row: 1; font-family: Georgia, serif; font-size: 27px; font-weight: 400; }
+.tenant-website[data-style='atelier'] .tenant-site-links { grid-column: 1; grid-row: 1; gap: 18px; font-size: 12px; }
+.tenant-website[data-style='atelier'] .tenant-site-nav > a:last-child { grid-column: 3; justify-self: end; }
+.tenant-website[data-style='atelier'] .tenant-monogram { display: none; }
+.site-hero[data-layout='atelier'] .site-hero-inner { grid-template-columns: 1fr; gap: 40px; padding-block: 60px 0; }
+.site-hero[data-layout='atelier'] .site-hero-copy { text-align: center; max-width: 850px; margin: auto; }
+.site-hero[data-layout='atelier'] h1 { font-size: clamp(42px, 5.8vw, 76px); }
+.site-hero[data-layout='atelier'] .site-hero-description { margin-inline: auto; max-width: 500px; }
+.site-hero[data-layout='atelier'] .site-hero-actions, .site-hero[data-layout='atelier'] .site-hero-address { justify-content: center; }
+.site-hero[data-layout='atelier'] .site-cover { aspect-ratio: 2.6; }
+.site-hero[data-layout='atelier'] .site-hero-overview { width: min(600px, 100%); margin: auto; }
+/* Practice: a compact, practical introduction with a landscape image or service overview. */
+.site-hero[data-layout='practice'] .site-hero-inner { gap: 70px; padding-block: 64px; }
+.site-hero[data-layout='practice'] h1 { font-size: clamp(38px, 4.4vw, 62px); font-weight: 500; line-height: 1.1; }
+.site-hero[data-layout='practice'] .site-cover { aspect-ratio: 1.15; border-radius: var(--tenant-radius); }
+/* Performance: immersive photography, edge-aligned type, and sharp geometry. */
+.tenant-website[data-style='performance'] .tenant-site-name { text-transform: uppercase; letter-spacing: .05em; }
+.site-hero[data-layout='performance'] { min-height: 620px; display: flex; align-items: end; }
+.site-hero[data-layout='performance'] h1 { text-transform: uppercase; font-weight: 700; line-height: .98; font-size: clamp(48px, 7.5vw, 108px); letter-spacing: -.04em; }
+/* Quiet Luxury: a portrait on the left, calm centred copy, and generous rhythm. */
+.tenant-website[data-style='retreat'] .tenant-site-nav { padding-block: 28px; }
+.tenant-website[data-style='retreat'] .tenant-site-name { font-family: Georgia, serif; font-weight: 400; font-size: 24px; }
+.site-hero[data-layout='retreat'] .site-hero-inner { grid-template-columns: .95fr 1.05fr; gap: 90px; padding-block: 80px; }
+.site-hero[data-layout='retreat'] .site-hero-media, .site-hero[data-layout='retreat'] .site-hero-overview { grid-column: 1; grid-row: 1; }
+.site-hero[data-layout='retreat'] .site-hero-copy { grid-column: 2; text-align: center; }
+.site-hero[data-layout='retreat'] .site-cover { border-radius: 46% 46% 2px 2px; aspect-ratio: 4 / 5; }
+.site-hero[data-layout='retreat'] h1 { font-size: clamp(42px, 5vw, 68px); font-weight: 400; line-height: 1.12; }
+.site-hero[data-layout='retreat'] .site-hero-description { margin-inline: auto; }
+.site-hero[data-layout='retreat'] .site-hero-actions, .site-hero[data-layout='retreat'] .site-hero-address { justify-content: center; }
+/* Every style leads with the same immersive cover: the header photo fills the
+   hero and the booking button sits on top of it. Typography stays per-style. */
+.site-hero[data-layout].has-photo { min-height: 620px; display: flex; align-items: end; }
+.site-hero[data-layout].has-photo > .site-hero-media { position: absolute; inset: 0; margin: 0; padding: 0; border: 0; max-width: none; }
+.site-hero[data-layout].has-photo .site-cover { position: absolute; inset: 0; aspect-ratio: auto; border-radius: 0; max-height: none; }
+.site-hero[data-layout].has-photo::after { content: ''; position: absolute; inset: 0; background: linear-gradient(0deg, rgba(0,0,0,.8), rgba(0,0,0,var(--cover-overlay, .4))); pointer-events: none; }
+.site-hero[data-layout].has-photo .site-hero-inner { display: block; position: relative; z-index: 1; padding-block: 80px; }
+.site-hero[data-layout].has-photo .site-hero-copy { max-width: 860px; grid-column: auto; }
+.site-hero[data-layout].has-photo :is(h1, .site-kicker, .site-hero-description, .site-hero-address) { color: #fff; }
+.site-hero[data-layout].has-photo figcaption { display: none; }
+.site-hero[data-layout='atelier'].has-photo .site-hero-copy, .site-hero[data-layout='retreat'].has-photo .site-hero-copy { margin-inline: auto; }
+
+/* Explicitly hiding the cover text is preserved in every style. */
+.site-hero.photo-only .site-hero-inner { display: block; position: relative; }
+.site-photo-cta { margin-top: 24px; }
+.site-hero[data-layout].photo-only .site-photo-cta { text-align: start; }
+.site-hero[data-layout='atelier'].photo-only .site-photo-cta, .site-hero[data-layout='retreat'].photo-only .site-photo-cta { text-align: center; }
+/* Service layouts change the image placement, density, hierarchy and grouping. */
+.site-services { padding-block: var(--site-space, 88px); background: var(--tenant-background); }
+.site-services .tenant-section-heading { margin-bottom: 44px; }
+.site-services .tenant-section-heading h2 { font-size: clamp(30px, 3.4vw, 46px); line-height: 1.12; font-weight: 400; letter-spacing: -.035em; }
+.site-service-collection { display: grid; gap: 24px; }
+.site-service { min-width: 0; overflow: hidden; }
+.site-service-content { display: flex; align-items: start; gap: 22px; padding-block: 26px; border-top: 1px solid var(--tenant-border); }
+.site-service-index { font-size: 11px; color: var(--tenant-muted); padding-top: 4px; }
+.site-service-description { flex: 1; min-width: 0; }
+.site-service-description h3 { font-size: 17px; font-weight: 500; line-height: 1.4; }
+.site-service-description p { font-size: 13px; line-height: 1.8; color: var(--tenant-muted); margin-top: 8px; max-width: 520px; }
+.site-service-description small { display: flex; align-items: center; gap: 5px; margin-top: 13px; font-size: 11px; color: var(--tenant-muted); }
+.site-service-price { font-size: 17px; font-weight: 500; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.site-service-photo { position: relative; aspect-ratio: 1.4; overflow: hidden; background: var(--tenant-surface); }
+.site-service-photo img { width: 100%; height: 100%; object-fit: cover; }
+.site-services[data-layout='editorial'] .site-service-collection { gap: 0; }
+.site-services[data-layout='editorial'] .site-service { display: flex; align-items: center; gap: 30px; border-top: 1px solid var(--tenant-border); padding-block: 16px; }
+.site-services[data-layout='editorial'] .site-service-content { flex: 1; border: 0; }
+.site-services[data-layout='editorial'] .site-service-photo { width: 110px; aspect-ratio: 1; flex-shrink: 0; }
+.site-services[data-layout='editorial'] .site-service-description h3 { font-family: Georgia, serif; font-size: 28px; }
+.site-services[data-layout='atelier'] .site-service-collection { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 30px; }
+.site-services[data-layout='atelier'] .site-service-content { flex-wrap: wrap; border: 0; padding-top: 20px; }
+.site-services[data-layout='atelier'] .site-service-index { display: none; }
+.site-services[data-layout='atelier'] .site-service-description h3 { font-family: Georgia, serif; font-size: 24px; }
+.site-services[data-layout='atelier'] .site-service-photo { aspect-ratio: 1.2; }
+.site-services[data-layout='practice'] .site-service { display: flex; align-items: center; gap: 25px; border-top: 1px solid var(--tenant-border); }
+.site-services[data-layout='practice'] .site-service-content { flex: 1; border: 0; }
+.site-services[data-layout='practice'] .site-service-photo { width: 76px; aspect-ratio: 1; flex-shrink: 0; border-radius: var(--tenant-radius); }
+.site-services[data-layout='practice'] .site-service-collection { gap: 0; }
+.site-services[data-layout='performance'] .site-service-collection { grid-template-columns: repeat(2, minmax(0,1fr)); }
+.site-services[data-layout='performance'] .site-service { border: 1px solid var(--tenant-border); background: var(--tenant-surface); }
+.site-services[data-layout='performance'] .site-service-content { border: 0; padding: 28px; flex-wrap: wrap; }
+.site-services[data-layout='performance'] .site-service-index { font-size: 30px; line-height: 1; color: var(--tenant-primary); }
+.site-services[data-layout='performance'] .site-service-description h3 { font-size: 22px; font-weight: 600; text-transform: uppercase; }
+.site-services[data-layout='performance'] .site-service-photo { aspect-ratio: 2.3; }
+.site-services[data-layout='retreat'] .tenant-section-heading { display: block; text-align: center; }
+.site-services[data-layout='retreat'] .tenant-text-link { margin-top: 20px; }
+.site-services[data-layout='retreat'] .site-service-collection { grid-template-columns: repeat(3,minmax(0,1fr)); gap: 32px; }
+.site-services[data-layout='retreat'] .site-service { padding: 12px; border: 1px solid var(--tenant-border); }
+.site-services[data-layout='retreat'] .site-service-photo { aspect-ratio: .85; }
+.site-services[data-layout='retreat'] .site-service-content { padding: 24px 10px 16px; flex-wrap: wrap; border: 0; gap: 15px; }
+.site-services[data-layout='retreat'] .site-service-description { flex-basis: 100%; text-align: center; }
+.site-services[data-layout='retreat'] .site-service-description h3 { font-family: Georgia, serif; font-size: 25px; }
+.site-services[data-layout='retreat'] .site-service-description small { justify-content: center; }
+.site-services[data-layout='retreat'] .site-service-index { display: none; }
+.site-services[data-layout='retreat'] .site-service-price { width: 100%; text-align: center; }
+.site-services[data-variant='minimal'] .site-service-collection { grid-template-columns: 1fr; }
+/* The booking flow remains a readable, neutral surface inside every brand. */
+.site-booking { padding: var(--site-space,88px) 32px; }
+.site-booking-inner { max-width: var(--site-width,1160px); margin: auto; display: grid; grid-template-columns: .7fr 1.3fr; gap: 65px; align-items: start; }
+.site-booking-intro { padding-top: 18px; }
+.site-booking-intro > p { color: var(--tenant-muted) !important; font-size: 10px; letter-spacing: .16em; }
+.site-booking-heading { font-size: clamp(30px,3.2vw,44px); line-height: 1.15; font-weight: 400; margin-top: 22px; letter-spacing: -.035em; }
+.site-booking[data-layout='atelier'] .site-booking-inner, .site-booking[data-layout='retreat'] .site-booking-inner { display: block; max-width: 820px; }
+.site-booking[data-layout='atelier'] .site-booking-intro, .site-booking[data-layout='retreat'] .site-booking-intro { text-align: center; margin-bottom: 44px; }
+.booking-flow-card { border-radius: var(--tenant-card-radius,16px); box-shadow: 0 10px 40px #00000006; }
+/* Inside a website the flow is a panel of that site, not a floating white card. */
+.tenant-website .booking-flow-root :is(input, textarea, select), .tenant-website .booking-flow-root .rounded-xl { border-radius: var(--tenant-radius, 12px); }
+.tenant-website .booking-flow-root .bf-cta-btn, .tenant-website .booking-flow-root button[type='submit'] { border-radius: var(--tenant-radius, 12px); }
+.tenant-website[data-style='performance'] .booking-flow-root .bf-cta-btn, .tenant-website[data-style='editorial'] .booking-flow-root .bf-cta-btn { border-radius: 2px; }
+.tenant-website[data-style='performance'] .booking-flow-card, .tenant-website[data-style='editorial'] .booking-flow-card { border-radius: 2px; }
+/* Builder frames use real viewport widths, not desktop breakpoints squeezed into a phone. */
+.builder-viewport { margin-inline: auto; overflow: hidden; border: 1px solid #d5d7dc; background: #fff; box-shadow: 0 12px 40px #18181b12; border-radius: 10px; }
+.builder-viewport-desktop { width: 100%; max-width: 1280px; }
+.builder-preview-stage { width: 100%; }
+.builder-device-space { margin-inline: auto; position: relative; }
+.builder-viewport-mobile { position: relative; box-sizing: content-box; width: 390px; height: 844px; border: 12px solid #19191b; border-radius: 58px; transform-origin: top left; box-shadow: 0 0 0 2px #77777c, 0 18px 40px #18181b26; background: #fafafa; }
+.builder-phone-status { height: 54px; position: relative; display: flex; align-items: center; justify-content: space-between; padding: 0 25px; color: #141416; font-family: Arial, sans-serif; }
+.builder-phone-status strong { font-size: 14px; padding-left: 5px; }
+.builder-phone-island { position: absolute; width: 120px; height: 32px; border-radius: 24px; background: #09090b; left: 50%; top: 10px; transform: translateX(-50%); }
+.builder-phone-island::after { content: ''; position: absolute; width: 9px; height: 9px; border-radius: 50%; background: #192132; right: 12px; top: 11px; box-shadow: inset 0 0 0 2px #10131b; }
+.builder-phone-indicators { display: flex; align-items: center; gap: 4px; }
+.builder-phone-home { height: 34px; display: flex; align-items: end; justify-content: center; padding-bottom: 9px; background: #fafafa; }
+.builder-phone-home span { width: 134px; height: 5px; border-radius: 8px; background: #141416; }
+.builder-viewport-mobile .builder-preview-frame { width: 390px; height: 756px; min-height: 0; }
+.builder-viewport-bar { display: flex; align-items: center; gap: 5px; height: 33px; padding: 0 14px; border-bottom: 1px solid #e4e4e7; background: #fafafa; }
+.builder-viewport-bar > span { width: 5px; height: 5px; border-radius: 50%; background: #c4c4ca; }
+.builder-viewport-bar p { flex: 1; font-size: 10px; color: #71717a; text-align: center; }
+.builder-preview-frame { display: block; width: 100%; height: calc(100dvh - 170px); min-height: 520px; border: 0; background: white; }
+.style-thumbnail { height: 100px; padding: 9px; overflow: hidden; border: 1px solid #ffffff20; margin-bottom: 14px; display: grid; gap: 6px; position: relative; }
+.style-thumbnail .thumb-nav { grid-column: 1/-1; height: 7px; border-bottom: 1px solid currentColor; opacity: .5; }
+.style-thumbnail .thumb-copy { display: flex; flex-direction: column; gap: 5px; justify-content: center; }
+.style-thumbnail .thumb-copy i { height: 5px; background: currentColor; width: 80%; opacity: .75; }
+.style-thumbnail .thumb-copy i:last-child { width: 35%; height: 9px; margin-top: 4px; }
+.style-thumbnail .thumb-photo { background: #80808030; overflow: hidden; min-height: 35px; }
+.style-thumbnail img { width: 100%; height: 100%; object-fit: cover; }
+/* Every style leads with the cover photo, so every thumbnail does too. */
+.style-thumbnail[data-style] { grid-template-columns: 1fr; grid-template-rows: 10px 1fr; }
+.style-thumbnail[data-style] .thumb-photo { position: absolute; inset: 0; opacity: .45; }
+.style-thumbnail[data-style] .thumb-copy { z-index: 1; width: 75%; justify-content: end; }
+.style-thumbnail[data-style] .thumb-nav { z-index: 1; }
+.style-thumbnail[data-style='atelier'] .thumb-copy, .style-thumbnail[data-style='retreat'] .thumb-copy { width: 100%; align-items: center; }
+.style-thumbnail[data-style='atelier'] .thumb-copy i { width: 40%; height: 3px; }
+.style-thumbnail[data-style='performance'] .thumb-copy i:last-child { height: 12px; }
+@media(max-width:900px) {
+  .site-hero-inner, .site-hero[data-layout='editorial'] .site-hero-inner, .site-hero[data-layout='retreat'] .site-hero-inner, .site-hero[data-layout='practice'] .site-hero-inner { gap: 36px; }
+  .tenant-website[data-style='atelier'] .tenant-site-links { display: none; }
+  .site-service-collection { gap: 20px; }
+  .site-services[data-layout='atelier'] .site-service-collection, .site-services[data-layout='retreat'] .site-service-collection { grid-template-columns: repeat(2,minmax(0,1fr)); gap: 20px; }
+  .site-booking-inner { grid-template-columns: 1fr; gap: 30px; max-width: 820px; }
+}
+@media(max-width:640px) {
+  .tenant-website { --tenant-border: color-mix(in srgb, var(--tenant-text) 15%, transparent); --site-space: 56px; }
+  .tenant-website[data-spacing='spacious'] { --site-space: 72px; }
+  .tenant-website[data-spacing='compact'] { --site-space: 40px; }
+  .tenant-website .tenant-site-nav { padding: 16px 20px; }
+  .tenant-website .tenant-site-name, .tenant-website[data-style] .tenant-site-name { font-size: 17px; }
+  .tenant-website[data-style='atelier'] .tenant-site-nav { display: flex; }
+  .tenant-website .tenant-monogram { display: none; }
+  .site-section-inner, .site-hero-inner { width: calc(100% - 40px); }
+  .site-hero .site-hero-inner, .site-hero[data-layout] .site-hero-inner { grid-template-columns: 1fr; gap: 32px; padding-block: 44px; }
+  .site-hero[data-layout] h1 { font-size: 44px; }
+  .site-hero-description { font-size: 14px; line-height: 1.8; }
+  .site-hero[data-layout='editorial'] .site-cover { aspect-ratio: 1.12; }
+  .site-hero[data-layout='atelier'] .site-hero-inner { padding-bottom: 0; }
+  .site-hero[data-layout='atelier'] .site-cover { aspect-ratio: 1.3; }
+  .site-hero[data-layout='retreat'] .site-hero-media, .site-hero[data-layout='retreat'] .site-hero-overview { grid-row: auto; grid-column: auto; }
+  .site-hero[data-layout='retreat'] .site-hero-copy { grid-column: auto; }
+  .site-hero[data-layout='retreat'] .site-hero-media { width: 85%; margin: auto; }
+  .site-hero[data-layout='retreat'] .site-cover { aspect-ratio: .95; }
+  .site-hero[data-layout].has-photo { min-height: 520px; }
+  .site-hero[data-layout].has-photo .site-hero-inner { padding-block: 52px; }
+  .site-hero[data-layout='performance'] { min-height: 560px; }
+  .site-hero[data-layout='performance'] h1 { font-size: 54px; }
+  .site-hero-overview { padding: 25px; }
+  .site-hero.photo-only .site-cover { aspect-ratio: 1.1; }
+  .site-service-content { gap: 12px; }
+  .site-services .tenant-section-heading { margin-bottom: 28px; }
+  .site-services[data-layout] .site-service-collection { grid-template-columns: 1fr; }
+  .site-services[data-layout='editorial'] .site-service { gap: 16px; }
+  .site-services[data-layout='editorial'] .site-service-photo { width: 64px; }
+  .site-services[data-layout='editorial'] .site-service-description h3 { font-size: 22px; }
+  .site-service-price { font-size: 14px; }
+  .site-services[data-layout='practice'] .site-service-photo { width: 55px; }
+  .site-services[data-layout='practice'] .site-service { gap: 14px; }
+  .site-services[data-layout='retreat'] .site-service-photo { aspect-ratio: 1.2; }
+  .site-booking { padding: var(--site-space) 16px; }
+  .site-booking-heading { font-size: 32px; }
+  .site-hero-media figcaption { font-size: 10px; }
+  .builder-preview-frame { min-height: 600px; }
+}
+
+.tenant-website [contenteditable='true'] { text-transform: none; }
+
+/* ── Customer sign in / sign out ──────────────────────────────────────────── */
+/* Same surfaces, type and buttons as the website the customer came from. */
+.tenant-auth-page { display: flex; flex-direction: column; min-height: 100dvh; background: var(--tenant-background); }
+.tenant-auth-main { flex: 1; display: grid; place-items: center; padding: 56px 20px; }
+.tenant-auth-card { width: min(440px, 100%); background: var(--tenant-surface); border: 1px solid var(--tenant-border); border-radius: var(--tenant-card-radius, 16px); padding: 40px; }
+.tenant-auth-title { font-family: var(--tenant-heading-font, inherit); font-size: clamp(28px, 4vw, 38px); font-weight: 400; letter-spacing: -.035em; line-height: 1.1; margin: 14px 0 10px; }
+.tenant-auth-sub { color: var(--tenant-muted); font-size: 14px; line-height: 1.8; margin-bottom: 26px; }
+.tenant-auth-tabs { display: grid; grid-template-columns: 1fr 1fr; gap: 0; border: 1px solid var(--tenant-border); border-radius: var(--tenant-radius); overflow: hidden; margin-bottom: 24px; }
+.tenant-auth-tabs button { padding: 12px 10px; font-size: 13px; font-weight: 500; color: var(--tenant-muted); background: transparent; transition: background .2s, color .2s; }
+.tenant-auth-tabs button.is-active { background: var(--tenant-primary); color: var(--tenant-on-primary, #fff); font-weight: 600; }
+.tenant-auth-form { display: flex; flex-direction: column; gap: 16px; }
+.tenant-auth-field { display: flex; flex-direction: column; gap: 7px; }
+.tenant-auth-field > span { font-size: 10px; letter-spacing: .16em; text-transform: uppercase; color: var(--tenant-muted); }
+.tenant-auth-field input { width: 100%; padding: 13px 15px; font-size: 14px; color: var(--tenant-text); background: var(--tenant-background); border: 1px solid var(--tenant-border); border-radius: var(--tenant-radius); outline: none; transition: border-color .2s; }
+.tenant-auth-field input::placeholder { color: color-mix(in srgb, var(--tenant-muted) 70%, transparent); }
+.tenant-auth-field input:focus { border-color: var(--tenant-primary); }
+.tenant-auth-field small { color: #dc2626; font-size: 12px; }
+.tenant-auth-code { text-align: center; font-size: 26px !important; letter-spacing: .5em; font-variant-numeric: tabular-nums; }
+.tenant-auth-submit { width: 100%; padding: 15px 20px; font-size: 13px; font-weight: 600; color: var(--tenant-on-primary, #fff); background: var(--tenant-primary); border-radius: var(--tenant-radius); transition: opacity .2s; }
+.tenant-auth-submit:hover { opacity: .9; }
+.tenant-auth-submit:disabled { opacity: .55; cursor: not-allowed; }
+.tenant-auth-error { color: #b91c1c; background: color-mix(in srgb, #dc2626 8%, transparent); border: 1px solid color-mix(in srgb, #dc2626 25%, transparent); border-radius: var(--tenant-radius); padding: 12px 15px; font-size: 13px; margin-bottom: 18px; }
+.tenant-auth-note { color: var(--tenant-muted); font-size: 12.5px; line-height: 1.8; text-align: center; margin-top: 18px; }
+.tenant-auth-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; font-size: 12.5px; color: var(--tenant-muted); }
+.tenant-auth-card .is-primary { color: var(--tenant-primary); font-weight: 500; }
+.tenant-auth-signout { display: inline-flex; align-items: center; gap: 8px; font-size: 12px; color: var(--tenant-muted); }
+.tenant-auth-signout strong { font-weight: 500; color: var(--tenant-text); }
+.tenant-auth-signout button { color: var(--tenant-muted); border-bottom: 1px solid var(--tenant-border); padding-bottom: 1px; transition: color .2s; }
+.tenant-auth-signout button:hover { color: var(--tenant-primary); }
+@media (max-width: 640px) {
+  .tenant-auth-main { padding: 28px 16px; }
+  .tenant-auth-card { padding: 26px 22px; border-radius: var(--tenant-radius); }
+  .tenant-auth-signout strong { display: none; }
+}
+
+/* ── About ────────────────────────────────────────────────────────────────── */
+.site-about { padding: var(--site-space, 88px) 0; background: var(--tenant-background); }
+.site-about-inner { display: grid; grid-template-columns: 1fr; gap: 44px; align-items: center; }
+.site-about[data-has-photo='true'] .site-about-inner { grid-template-columns: .85fr 1.15fr; gap: 64px; }
+.site-about[data-variant='centered'] .site-about-inner { grid-template-columns: 1fr; max-width: 740px; margin-inline: auto; text-align: center; }
+.site-about-media { margin: 0; overflow: hidden; border-radius: var(--tenant-card-radius, 16px); aspect-ratio: 4 / 3; }
+.site-about-media img { width: 100%; height: 100%; object-fit: cover; }
+.site-about-copy h2 { font-size: clamp(28px, 3.4vw, 44px); font-weight: 400; letter-spacing: -.035em; line-height: 1.15; margin-bottom: 22px; }
+.site-about-text { font-size: 15.5px; line-height: 1.95; color: var(--tenant-muted); white-space: pre-line; max-width: 62ch; }
+.site-about[data-variant='centered'] .site-about-text { margin-inline: auto; }
+.site-about-text.is-narrow { font-size: 14.5px; line-height: 1.85; }
+
+/* ── Gallery: a horizontal rail with arrow controls ───────────────────────── */
+.site-gallery { padding: var(--site-space, 88px) 0; }
+.site-gallery-heading { align-items: center; }
+.site-gallery-arrows { display: flex; gap: 8px; flex-shrink: 0; }
+.site-gallery-arrows button { display: grid; place-items: center; width: 40px; height: 40px; border: 1px solid var(--tenant-border); border-radius: 50%; color: var(--tenant-text); background: transparent; transition: background .2s, opacity .2s, border-color .2s; }
+.site-gallery-arrows button:hover:not(:disabled) { background: var(--tenant-primary); border-color: var(--tenant-primary); color: var(--tenant-on-primary, #fff); }
+.site-gallery-arrows button:disabled { opacity: .3; cursor: not-allowed; }
+.site-gallery-track { display: flex; gap: 16px; overflow-x: auto; scroll-snap-type: x mandatory; scroll-padding-inline: 0; padding-bottom: 6px; scrollbar-width: none; }
+.site-gallery-track::-webkit-scrollbar { display: none; }
+.site-gallery-card { position: relative; flex: 0 0 clamp(240px, 30%, 380px); aspect-ratio: 4 / 5; scroll-snap-align: start; overflow: hidden; border-radius: var(--tenant-card-radius, 16px); background: var(--tenant-accent); }
+.site-gallery-card img { width: 100%; height: 100%; object-fit: cover; transition: transform .6s ease; }
+.site-gallery-card:hover img { transform: scale(1.04); }
+.site-gallery-card.is-editable { cursor: pointer; outline: 1px solid transparent; outline-offset: -1px; }
+.site-gallery-card.is-editable:hover { outline-color: var(--tenant-primary); }
+.site-gallery-empty { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; width: 100%; height: 100%; padding: 0 14px; text-align: center; color: var(--tenant-primary); opacity: .45; }
+.site-gallery-empty span { font-size: 12px; font-weight: 500; color: var(--tenant-muted); }
+.site-gallery-actions { position: absolute; inset-inline: 10px; bottom: 10px; display: flex; align-items: center; justify-content: space-between; gap: 8px; opacity: 0; transition: opacity .2s; }
+.site-gallery-card:hover .site-gallery-actions { opacity: 1; }
+.site-gallery-actions span { border-radius: 999px; background: #00000099; padding: 4px 10px; font-size: 10px; font-weight: 600; color: #fff; }
+.site-gallery-actions button { display: grid; place-items: center; border-radius: 999px; background: #00000099; padding: 6px; color: #fff; }
+.site-gallery-actions button:hover { background: #000000cc; }
+.tenant-website[data-style='editorial'] :is(.site-gallery-card, .site-about-media), .tenant-website[data-style='performance'] :is(.site-gallery-card, .site-about-media) { border-radius: 2px; }
+
+@media (max-width: 900px) {
+  .site-about[data-has-photo='true'] .site-about-inner { grid-template-columns: 1fr; gap: 32px; }
+}
+@media (max-width: 640px) {
+  .site-about, .site-gallery { padding: var(--site-space) 0; }
+  .site-about-inner { gap: 26px; }
+  .site-about-text { font-size: 14.5px; line-height: 1.85; }
+  .site-gallery-card { flex-basis: 78%; }
+  .site-gallery-arrows button { width: 36px; height: 36px; }
+}
+
+/* Category groupings inside the service collection. */
+.site-service-group + .site-service-group { margin-top: 52px; }
+.site-service-group-heading { display: flex; align-items: center; gap: 18px; margin-bottom: 24px; }
+.site-service-group-heading h3 { font-size: 12px; letter-spacing: .18em; text-transform: uppercase; font-weight: 600; color: var(--tenant-primary); white-space: nowrap; }
+.site-service-group-heading span { flex: 1; height: 1px; background: var(--tenant-border); }
+@media (max-width: 640px) {
+  .site-service-group + .site-service-group { margin-top: 36px; }
+  .site-service-group-heading { margin-bottom: 18px; gap: 12px; }
+}
